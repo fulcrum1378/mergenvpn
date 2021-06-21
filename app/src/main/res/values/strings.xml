@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MergenVPN</string>
+
+    <string name="connecting">MergenVPN is connecting&#8230;</string>
+    <string name="connected">MergenVPN is connected!</string>
+    <string name="disconnected">MergenVPN is disconnected!</string>
+</resources>
