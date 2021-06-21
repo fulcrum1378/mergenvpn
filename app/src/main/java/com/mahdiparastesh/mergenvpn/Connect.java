@@ -22,6 +22,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Connect extends Thread {
+    final int TIMEOUT = 15000;
+
     public interface OnEstablishListener {
         void onEstablish(ParcelFileDescriptor tunInterface);
     }
@@ -77,7 +79,7 @@ public class Connect extends Thread {
             final SocketAddress serverAddress = new InetSocketAddress(mServerName, mServerPort);
             for (int attempt = 0; attempt < 10; ++attempt) {
                 if (run(serverAddress)) attempt = 0;
-                Thread.sleep(3000);
+                Thread.sleep(TIMEOUT);
             }
             Log.i(getTag(), "Giving up");
         } catch (IOException | InterruptedException | IllegalArgumentException e) {
