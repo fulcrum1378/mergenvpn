@@ -22,18 +22,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Connect extends Thread {
-    final int TIMEOUT = 15000;
-
-    public interface OnEstablishListener {
-        void onEstablish(ParcelFileDescriptor tunInterface);
-    }
-
     private static final int MAX_PACKET_SIZE = Short.MAX_VALUE;
     private static final long RECONNECT_WAIT_MS = TimeUnit.SECONDS.toMillis(3);
     private static final long KEEPALIVE_INTERVAL_MS = TimeUnit.SECONDS.toMillis(15);
     private static final long RECEIVE_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(20);
     private static final long IDLE_INTERVAL_MS = TimeUnit.MILLISECONDS.toMillis(100);
 
+    private final int TIMEOUT = 5000;
     private static final int MAX_HANDSHAKE_ATTEMPTS = 50;
     private final VpnService mService;
     private final int mConnectionId;
@@ -195,14 +190,13 @@ public class Connect extends Thread {
             }
         }
         final ParcelFileDescriptor vpnInterface;
-        for (String packageName : mPackages) {
+        for (String packageName : mPackages)
             try {
                 if (mAllow) builder.addAllowedApplication(packageName);
                 else builder.addDisallowedApplication(packageName);
             } catch (PackageManager.NameNotFoundException e) {
                 Log.w(getTag(), "Package not available: " + packageName, e);
             }
-        }
         builder.setSession(mServerName).setConfigureIntent(mConfigureIntent);
         if (!TextUtils.isEmpty(mProxyHostName))
             builder.setHttpProxy(ProxyInfo.buildDirectProxy(mProxyHostName, mProxyHostPort));
@@ -218,5 +212,10 @@ public class Connect extends Thread {
 
     private final String getTag() {
         return Connect.class.getSimpleName() + "[" + mConnectionId + "]";
+    }
+
+
+    public interface OnEstablishListener {
+        void onEstablish(ParcelFileDescriptor tunInterface);
     }
 }

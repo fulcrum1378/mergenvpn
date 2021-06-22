@@ -22,11 +22,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Medium extends VpnService implements Handler.Callback {
     final String server = "82.102.10.134"; // "" - Server Address
     final int port = 1080; // 0 - Server Port
-    final byte[] secret = "".getBytes(); // Shared Secret
+    final byte[] secret = "".getBytes(); // "".getBytes() - Shared Secret
     final boolean allow = true;
     final Set<String> packages = Collections.emptySet();
-    // if proxyHost.isEmpty() != proxyPort.isEmpty():
-    // Incomplete proxy settings. For HTTP proxy we require both hostname and port settings.
     final String proxyHost = ""; // "" - HTTP proxy hostname
     final int proxyPort = 0; // 0 - HTTP proxy port
 
